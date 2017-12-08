@@ -1,11 +1,10 @@
 package dz2.ann.login;
 
-import org.junit.Test;
+import dz2.AuthorizationWithoutName;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import ru.levelup.dz2.Authorization;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by admin on 28.11.2017.
@@ -14,9 +13,8 @@ public class LoginFromNameTest {
     @Test
     @DisplayName("Тест на пустую строку имени")
     public void testCreateNewClassWithEmptyName() throws Exception {
-            Assertions.assertFalse(Boolean.parseBoolean(new Authorization("").getLogin()));
-            Assertions.assertFalse(Boolean.parseBoolean(new Authorization("  ").getLogin()));
-            Assertions.assertFalse(Boolean.parseBoolean(new Authorization("ABC").getLogin()));
+            Assertions.assertFalse(new Authorization("").getLogin() == "");
+            Assertions.assertFalse(new Authorization("   ").getLogin() == "   ");
     }
 
     @Test
@@ -30,4 +28,16 @@ public class LoginFromNameTest {
             Assertions.assertTrue(charedName[i] == charedLogin[authorization.getName().length()-1-i]);
     }
 
+    @Test
+    @DisplayName("Тест на Exception")
+    public void testCreateNameException() {
+        try {
+            AuthorizationWithoutName authorization = new AuthorizationWithoutName();
+            Assertions.assertTrue(false);
+        } catch (NoSuchFieldException e) {
+            Assertions.assertTrue(true);
+        } catch (IllegalAccessException e) {
+            Assertions.assertTrue(false);
+        }
+    }
 }

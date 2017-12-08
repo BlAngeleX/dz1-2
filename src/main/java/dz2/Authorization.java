@@ -1,6 +1,7 @@
 package dz2;
 
 import dz2.ann.login.Login;
+import dz2.ann.login.LoginFromName;
 
 /**
  * Created by admin on 19.11.2017.
@@ -12,9 +13,10 @@ public class Authorization {
     @Login
     private String login;
 
-    public Authorization (String name) {
-        this.name = name;
-        //LoginFromName.startCreateLogin(this);
+    public Authorization (String name) throws NoSuchFieldException, IllegalAccessException {
+        if (!name.trim().isEmpty())
+            this.name = name;
+        LoginFromName.startCreateLogin(this);
     }
 
     public String getName() {

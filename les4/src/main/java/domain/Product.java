@@ -19,6 +19,10 @@ public class Product {
     @Column (name = "WEIGHT")
     private double weight;
 
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
     public int getProductId() {
         return productId;
     }

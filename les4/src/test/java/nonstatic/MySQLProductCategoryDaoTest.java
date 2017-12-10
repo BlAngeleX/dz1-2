@@ -1,24 +1,19 @@
 package nonstatic;
 
-import dao.ProductCategory;
-import dao.ProductCategoryDao;
-import nonstatic.ConnectionFactory;
-import nonstatic.MySQLProductCategoryDao;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import domain.ProductCategory;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 /**
@@ -35,9 +30,9 @@ public class MySQLProductCategoryDaoTest {
     @Mock
     private ResultSet resultSet;
 
-    private ProductCategoryDao dao;
+    private MySQLProductCategoryDao dao;
 
-    @BeforeEach
+    @Before
     public void setup() throws SQLException {
         MockitoAnnotations.initMocks(this);
         when(connectionFactory.getConnection()).thenReturn(connection);
@@ -66,9 +61,10 @@ public class MySQLProductCategoryDaoTest {
         when(resultSet.getInt(1)).thenReturn(categoryId);
         when(resultSet.getString(2)).thenReturn(name);
 
-        ProductCategory category = dao.create(name);
-        Assertions.assertEquals(category, category.getCategoryId());
-        Assertions.assertEquals(name, category.getName());
+
+        dao.ProductCategory category = dao.create(name);
+        assertEquals(categoryId, category.getCategoryId());
+        assertEquals(name, category.getName());
 
     }
 }
